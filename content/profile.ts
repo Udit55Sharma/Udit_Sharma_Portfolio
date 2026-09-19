@@ -38,6 +38,8 @@ export const profile = {
   github: 'https://github.com/Udit55Sharma',
   leetcode: 'https://leetcode.com/u/udit55sharma',
   hackerrank: 'https://hackerrank.com/udit55sharma',
+  /** Served straight out of /public, so it opens without a round trip. */
+  resume: '/Udit_Sharma_Resume.pdf',
 };
 
 export const checkpoints: Checkpoint[] = [

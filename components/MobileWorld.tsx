@@ -8,11 +8,12 @@ import { checkpoints, profile, projects } from '@/content/profile';
  */
 export default function MobileWorld() {
   const links = [
+    { label: 'Resume', href: profile.resume, bg: 'var(--accent)', fg: '#0f172a' },
     { label: 'Email', href: `mailto:${profile.email}`, bg: 'var(--coin)', fg: '#0f172a' },
     { label: 'LinkedIn', href: profile.linkedin, bg: 'var(--secondary)', fg: '#fff' },
     { label: 'GitHub', href: profile.github, bg: 'var(--card-2)', fg: '#fff' },
     { label: 'LeetCode', href: profile.leetcode, bg: 'var(--coin)', fg: '#0f172a' },
-    { label: 'HackerRank', href: profile.hackerrank, bg: 'var(--accent)', fg: '#0f172a' },
+    { label: 'HackerRank', href: profile.hackerrank, bg: 'var(--card-2)', fg: '#fff' },
   ];
 
   const accents = ['var(--secondary)', 'var(--coin)', 'var(--primary)', 'var(--accent)', 'var(--primary)'];
