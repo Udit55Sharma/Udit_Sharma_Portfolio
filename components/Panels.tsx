@@ -38,9 +38,10 @@ export function TitlePanel() {
           </p>
         </div>
 
-        <p className="text-outline mt-6 max-w-lg text-[19px] leading-relaxed text-white">
-          College, Amazon ML Summer School, and building AI-powered enterprise software.
-          Hit the <span className="text-[var(--coin)]">?</span> blocks along the way for projects.
+        <p className="text-outline mt-6 max-w-xl text-[19px] leading-relaxed text-white">
+          Four years of Information Technology, a summer learning machine learning from Amazon
+          scientists, and now building AI into enterprise software that people actually use.
+          Keep scrolling to walk it.
         </p>
       </div>
     </section>

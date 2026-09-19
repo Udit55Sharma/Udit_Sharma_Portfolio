@@ -37,7 +37,7 @@ export default function CheckpointPanel({ checkpoint }: { checkpoint: Checkpoint
     >
       {/* content card */}
       <article
-        className="arcade-panel absolute left-[5%] p-6"
+        className="arcade-panel absolute right-[5%] p-6"
         style={
           {
             bottom: `calc(var(--ground-h) + ${CARD_LIFT}px)`,
@@ -123,7 +123,7 @@ export default function CheckpointPanel({ checkpoint }: { checkpoint: Checkpoint
       {/* signboard on a post, standing on the ground */}
       {logo && (
         <div
-          className="absolute right-[7%] flex flex-col items-center"
+          className="absolute left-[6%] flex flex-col items-center"
           style={{ bottom: 'var(--ground-h)' }}
           data-reveal="sign"
         >

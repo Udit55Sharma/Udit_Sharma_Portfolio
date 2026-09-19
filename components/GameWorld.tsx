@@ -24,6 +24,19 @@ const RUN_THRESHOLD = 25;
 const HERO_X = 0.2;
 
 /**
+ * Zoom level of the world. 0.9 shows ~11% more of it per screen, which reads
+ * like viewing the page at 90% in the browser.
+ *
+ * Implemented as a transform on a wrapper, NOT CSS `zoom`. Everything below
+ * measures the DOM, and `zoom` splits layout pixels from visual pixels —
+ * getBoundingClientRect scales while offsetLeft/scrollWidth don't, which
+ * silently desyncs the parallax and the project triggers. With a transform,
+ * all layout stays in one coordinate space and only the visual result is
+ * scaled, so the maths just needs dividing through by this constant.
+ */
+const WORLD_SCALE = 0.9;
+
+/**
  * How close (px) the character must be to a project block before it opens.
  * Wide enough that a fast scroll can't skip straight past the trigger.
  */
@@ -99,18 +112,25 @@ export default function GameWorld() {
       setSceneryWidth(track.scrollWidth);
 
       const panels = Array.from(track.querySelectorAll<HTMLElement>('[data-world]'));
-      const maxX = () => Math.max(1, track.scrollWidth - window.innerWidth);
+      // Inside the scaled wrapper the world lays out in a viewport that is
+      // WORLD_SCALE smaller, so every comparison happens in that space.
+      const viewW = () => window.innerWidth / WORLD_SCALE;
+      const maxX = () => Math.max(1, track.scrollWidth - viewW());
 
       // Reveal queue, ordered left-to-right by untransformed position.
       // IntersectionObserver is no use here: the track is pinned with
       // position:fixed and only its transform changes, which browsers do
       // not reliably re-evaluate intersections for.
       let pending = Array.from(track.querySelectorAll<HTMLElement>('[data-reveal]'))
-        .map((el) => ({ el, baseLeft: el.getBoundingClientRect().left }))
+        .map((el) => ({
+          el,
+          // Rects come back already scaled; divide back to layout space.
+          baseLeft: el.getBoundingClientRect().left / WORLD_SCALE,
+        }))
         .sort((a, b) => a.baseLeft - b.baseLeft);
 
       const revealUpTo = (x: number) => {
-        const threshold = window.innerWidth * 0.9;
+        const threshold = viewW() * 0.9;
         let i = 0;
         while (i < pending.length && pending[i].baseLeft + x < threshold) {
           pending[i].el.classList.add('is-in');
@@ -127,13 +147,16 @@ export default function GameWorld() {
         track.querySelectorAll<HTMLElement>('[data-project]'),
       ).map((el) => {
         const r = el.getBoundingClientRect();
-        return { id: el.dataset.project ?? '', baseCenter: r.left + r.width / 2 };
+        return {
+          id: el.dataset.project ?? '',
+          baseCenter: (r.left + r.width / 2) / WORLD_SCALE,
+        };
       });
 
       ScrollTrigger.create({
         trigger: container,
         start: 'top top',
-        end: () => `+=${maxX()}`,
+        end: () => `+=${maxX() * WORLD_SCALE}`,
         pin: true,
         anticipatePin: 1,
         invalidateOnRefresh: true,
@@ -167,7 +190,7 @@ export default function GameWorld() {
           }
 
           // Whichever level currently occupies the camera.
-          const cameraX = -x + window.innerWidth * 0.45;
+          const cameraX = -x + viewW() * 0.45;
           let active = panels[0];
           for (const p of panels) {
             if (p.offsetLeft <= cameraX) active = p;
@@ -196,7 +219,7 @@ export default function GameWorld() {
           setPhase((prev) => (prev === label ? prev : label));
 
           // Walking level with a block trips it open; walking on closes it.
-          const heroX = window.innerWidth * HERO_X;
+          const heroX = viewW() * HERO_X;
           let hit: string | null = null;
           for (const b of blocks) {
             if (Math.abs(b.baseCenter + x - heroX) < TRIGGER_RADIUS) {
@@ -259,6 +282,17 @@ export default function GameWorld() {
     >
       {/* Everything inside the camera shakes together on impact. */}
       <div ref={cameraRef} className="absolute inset-0">
+        {/* The world is laid out at 1/WORLD_SCALE size and scaled down, so a
+            wider slice of it fits on screen. Origin is the top-left corner so
+            layout coordinates map to visual ones by a plain multiply. */}
+        <div
+          className="absolute left-0 top-0 origin-top-left"
+          style={{
+            width: `${100 / WORLD_SCALE}%`,
+            height: `${100 / WORLD_SCALE}%`,
+            transform: `scale(${WORLD_SCALE})`,
+          }}
+        >
         {/* parallax layers, slowest first */}
         <div ref={starsRef} className="absolute inset-0 will-change-transform" aria-hidden="true">
           <Stars width={sceneryWidth} />
@@ -303,6 +337,7 @@ export default function GameWorld() {
           style={{ left: `${HERO_X * 100}%`, bottom: 'calc(var(--ground-h) - 8px)' }}
         >
           <Character state={heroState} facing={facing} />
+        </div>
         </div>
       </div>
 

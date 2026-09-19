@@ -99,7 +99,6 @@ export const checkpoints: Checkpoint[] = [
     ],
     powerUps: ['C#', '.NET', 'Dynamics 365', 'Power Platform', 'Power Automate'],
     stats: [],
-    outro: 'And most importantly — how much there is still left to learn.',
   },
   {
     id: 'maq-se1',
@@ -122,6 +121,8 @@ export const checkpoints: Checkpoint[] = [
     ],
     powerUps: ['Semantic Kernel', 'Agentic Workflows', 'LLM Orchestration', 'C#', '.NET'],
     stats: [],
+    // Closes the whole MAQ arc, so it lands after SE-1 rather than mid-story.
+    outro: 'And most importantly — how much there is still left to learn.',
   },
   {
     id: 'castle',
