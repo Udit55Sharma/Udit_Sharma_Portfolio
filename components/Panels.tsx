@@ -7,7 +7,13 @@ export function TitlePanel() {
   return (
     <section
       className="relative h-full shrink-0"
-      style={{ width: 'clamp(760px, 70vw, 1080px)' }}
+      style={{
+        // Must cover the whole first screen so World 1-1 — and the GL Bajaj
+        // signboard in particular — stays off-stage until you scroll. The
+        // world renders at WORLD_SCALE (0.9), so the layout viewport is
+        // 100/0.9 = 111.1vw; 115vw leaves a margin on top of that.
+        width: 'max(1120px, 115vw)',
+      }}
       aria-label="Start"
       data-world="0-0"
       data-title="Press scroll to start"

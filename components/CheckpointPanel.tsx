@@ -35,18 +35,42 @@ export default function CheckpointPanel({ checkpoint }: { checkpoint: Checkpoint
       data-world={world}
       data-title={org}
     >
-      {/* content card */}
-      <article
-        className="arcade-panel absolute right-[5%] p-6"
-        style={
-          {
-            bottom: `calc(var(--ground-h) + ${CARD_LIFT}px)`,
-            width: twoCol ? 'min(62%, 800px)' : 'min(46%, 620px)',
-            '--panel-accent': accent,
-          } as React.CSSProperties
-        }
-        data-reveal="card"
+      {/* Signboard and card travel together as one unit, so the space
+          between them is a fixed gap rather than whatever is left over
+          between two opposite panel edges. */}
+      <div
+        className="absolute flex items-end gap-10"
+        style={{ left: '14%', bottom: 'var(--ground-h)' }}
       >
+        {/* signboard on a post, standing on the ground */}
+        {logo && (
+          <div className="flex shrink-0 flex-col items-center" data-reveal="sign">
+            <div className="signboard">
+              <Image
+                src={logo.src}
+                alt={logo.alt}
+                width={520}
+                height={120}
+                unoptimized
+                className="h-14 w-auto max-w-[320px] object-contain"
+              />
+            </div>
+            <div className="sign-post h-36" />
+          </div>
+        )}
+
+        {/* content card, floated clear of the ground */}
+        <article
+          className="arcade-panel p-6"
+          style={
+            {
+              marginBottom: `${CARD_LIFT}px`,
+              width: twoCol ? 'min(58vw, 800px)' : 'min(44vw, 620px)',
+              '--panel-accent': accent,
+            } as React.CSSProperties
+          }
+          data-reveal="card"
+        >
         <div className="font-display text-[10px]" style={{ color: accent }}>
           WORLD {world}
         </div>
@@ -118,28 +142,8 @@ export default function CheckpointPanel({ checkpoint }: { checkpoint: Checkpoint
             )}
           </div>
         )}
-      </article>
-
-      {/* signboard on a post, standing on the ground */}
-      {logo && (
-        <div
-          className="absolute left-[6%] flex flex-col items-center"
-          style={{ bottom: 'var(--ground-h)' }}
-          data-reveal="sign"
-        >
-          <div className="signboard">
-            <Image
-              src={logo.src}
-              alt={logo.alt}
-              width={520}
-              height={120}
-              unoptimized
-              className="h-14 w-auto max-w-[320px] object-contain"
-            />
-          </div>
-          <div className="sign-post h-36" />
-        </div>
-      )}
+        </article>
+      </div>
     </section>
   );
 }
