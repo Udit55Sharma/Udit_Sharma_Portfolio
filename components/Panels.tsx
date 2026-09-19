@@ -51,11 +51,13 @@ export function OutroPanel({ text }: { text: string }) {
   return (
     <section
       className="relative h-full shrink-0"
-      style={{ width: 'clamp(620px, 58vw, 900px)' }}
+      style={{ width: 'clamp(820px, 68vw, 1160px)' }}
       aria-hidden="true"
     >
+      {/* Pushed well right of the panel edge so the line gets clear air
+          after the SE-1 card rather than crowding straight up against it. */}
       <div
-        className="absolute left-[8%] w-[84%]"
+        className="absolute left-[26%] w-[70%]"
         style={{ bottom: 'calc(var(--ground-h) + 140px)' }}
         data-reveal="outro"
       >
@@ -83,7 +85,7 @@ export function CastlePanel() {
   return (
     <section
       className="relative h-full shrink-0"
-      style={{ width: 'clamp(1000px, 88vw, 1340px)' }}
+      style={{ width: 'clamp(1220px, 92vw, 1480px)' }}
       aria-label="What comes next, and contact"
       data-world="5-1"
       data-title="The castle"
@@ -110,12 +112,28 @@ export function CastlePanel() {
         </div>
       </div>
 
-      {/* castle, lit from within */}
+      {/* Card and castle travel together, so they can never overlap. */}
       <div
-        className="absolute right-[8%] flex flex-col items-center"
-        style={{ bottom: 'var(--ground-h)' }}
-        data-reveal="castle"
+        className="absolute flex items-end gap-12"
+        style={{ left: '20%', bottom: 'var(--ground-h)' }}
       >
+        {/* content */}
+        <article
+          className="arcade-panel p-7"
+          style={
+            {
+              marginBottom: '104px',
+              width: 'min(38vw, 470px)',
+              '--panel-accent': 'var(--primary)',
+            } as React.CSSProperties
+          }
+          data-reveal="card"
+        >
+          <CastleCard links={links} />
+        </article>
+
+        {/* castle, lit from within */}
+        <div className="flex shrink-0 flex-col items-center" data-reveal="castle">
         <div className="flex items-end gap-2">
           <Battlement h={78} />
           <Battlement h={112} />
@@ -140,52 +158,52 @@ export function CastlePanel() {
           />
           <div className="h-28 w-24 rounded-t-full border-[3px] border-black bg-[#0b1020]" />
         </div>
-      </div>
-
-      {/* content */}
-      <article
-        className="arcade-panel absolute left-[29%] w-[min(42%,490px)] p-7"
-        style={
-          {
-            bottom: 'calc(var(--ground-h) + 104px)',
-            '--panel-accent': 'var(--primary)',
-          } as React.CSSProperties
-        }
-        data-reveal="card"
-      >
-        <div className="font-display text-[10px] text-[var(--primary)]">WORLD 5-1</div>
-        <h2
-          className="font-display neon mt-3 text-lg leading-snug"
-          style={{ '--neon-color': 'var(--primary)' } as React.CSSProperties}
-        >
-          The castle
-        </h2>
-        <p className="mt-4 text-[19px] leading-relaxed text-[var(--muted-fg)]">
-          This level is still being built. More soon.
-        </p>
-
-        <div
-          className="mt-6 border-t-2 border-dashed pt-5"
-          style={{ borderColor: 'var(--border)' }}
-        >
-          <div className="font-display text-[9px] text-[var(--muted-fg)]">SAY HELLO</div>
-          <div className="mt-4 flex flex-wrap gap-2.5">
-            {links.map((l) => (
-              <a
-                key={l.label}
-                href={l.href}
-                target={l.href.startsWith('mailto:') ? undefined : '_blank'}
-                rel="noreferrer"
-                className="pixel-edge font-display cursor-pointer px-3 py-2.5 text-[8px] transition-transform hover:-translate-y-1"
-                style={{ background: l.bg, color: l.fg }}
-              >
-                {l.label}
-              </a>
-            ))}
-          </div>
         </div>
-      </article>
+      </div>
     </section>
+  );
+}
+
+/** Body of the castle card, split out to keep the layout above readable. */
+function CastleCard({
+  links,
+}: {
+  links: { label: string; href: string; bg: string; fg: string }[];
+}) {
+  return (
+    <>
+      <div className="font-display text-[10px] text-[var(--primary)]">WORLD 5-1</div>
+      <h2
+        className="font-display neon mt-3 text-lg leading-snug"
+        style={{ '--neon-color': 'var(--primary)' } as React.CSSProperties}
+      >
+        The castle
+      </h2>
+      <p className="mt-4 text-[19px] leading-relaxed text-[var(--muted-fg)]">
+        This level is still being built. More soon.
+      </p>
+
+      <div
+        className="mt-6 border-t-2 border-dashed pt-5"
+        style={{ borderColor: 'var(--border)' }}
+      >
+        <div className="font-display text-[9px] text-[var(--muted-fg)]">SAY HELLO</div>
+        <div className="mt-4 flex flex-wrap gap-2.5">
+          {links.map((l) => (
+            <a
+              key={l.label}
+              href={l.href}
+              target={l.href.startsWith('mailto:') ? undefined : '_blank'}
+              rel="noreferrer"
+              className="pixel-edge font-display cursor-pointer px-3 py-2.5 text-[8px] transition-transform hover:-translate-y-1"
+              style={{ background: l.bg, color: l.fg }}
+            >
+              {l.label}
+            </a>
+          ))}
+        </div>
+      </div>
+    </>
   );
 }
 
