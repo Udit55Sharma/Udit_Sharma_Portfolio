@@ -30,21 +30,17 @@ export function TitlePanel() {
           {profile.name.toUpperCase()}
         </h1>
 
-        <p className="font-display text-outline mt-5 text-xs text-white sm:text-sm">
-          {profile.role}
-        </p>
-
-        <div className="pixel-edge mt-8 inline-block bg-[var(--primary)] px-5 py-4">
-          <p className="font-display blink text-[10px] leading-relaxed text-white">
-            SCROLL TO START
-          </p>
-        </div>
-
         <p className="text-outline mt-6 max-w-xl text-[19px] leading-relaxed text-white">
           Four years of Information Technology, a summer learning machine learning from Amazon
           scientists, and now building AI into enterprise software that people actually use.
           Keep scrolling to walk it.
         </p>
+
+        <div className="pixel-edge mt-7 inline-block bg-[var(--primary)] px-5 py-4">
+          <p className="font-display blink text-[10px] leading-relaxed text-white">
+            SCROLL TO START
+          </p>
+        </div>
       </div>
     </section>
   );
