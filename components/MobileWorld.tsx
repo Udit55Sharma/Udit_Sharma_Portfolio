@@ -29,11 +29,8 @@ export default function MobileWorld() {
           priority
           className="mb-6 h-44 w-auto"
         />
-        <div className="font-display text-[9px] text-[var(--coin)]">
-          A SIDE-SCROLLING PORTFOLIO
-        </div>
         <h1
-          className="font-display neon mt-4 text-xl leading-[1.7] text-white"
+          className="font-display neon text-xl leading-[1.7] text-white"
           style={{ '--neon-color': 'var(--secondary)' } as React.CSSProperties}
         >
           {profile.name.toUpperCase()}

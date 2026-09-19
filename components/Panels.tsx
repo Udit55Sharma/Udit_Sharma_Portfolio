@@ -17,10 +17,6 @@ export function TitlePanel() {
         className="absolute left-[9%] w-[min(82%,660px)]"
         style={{ bottom: 'calc(var(--ground-h) + 196px)' }}
       >
-        <div className="font-display text-outline text-[10px] text-[var(--coin)]">
-          A SIDE-SCROLLING PORTFOLIO
-        </div>
-
         <h1
           className="font-display neon text-outline mt-5 text-2xl leading-[1.7] text-white sm:text-4xl"
           style={{ '--neon-color': 'var(--secondary)' } as React.CSSProperties}
