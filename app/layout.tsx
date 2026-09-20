@@ -21,7 +21,7 @@ const vt323 = VT323({
   display: "swap",
 });
 
-const title = `${profile.name} — Software Engineer`;
+const title = profile.name;
 const description =
   "An interactive side-scrolling portfolio: college, Amazon ML Summer School, and building AI-powered enterprise software at MAQ Software.";
 
