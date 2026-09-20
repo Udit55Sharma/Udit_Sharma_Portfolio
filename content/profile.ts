@@ -84,8 +84,8 @@ export const checkpoints: Checkpoint[] = [
     id: 'maq-intern',
     world: '3-1',
     title: 'The grind',
-    org: 'MAQ Software — Intern',
-    period: 'TBC',
+    org: 'MAQ Software — Associate Software Engineer',
+    period: 'Sept 2025 – Sept 2026',
     location: 'Noida',
     logo: { src: '/assets/maq.png', alt: 'MAQ Software' },
     intro:
@@ -106,8 +106,8 @@ export const checkpoints: Checkpoint[] = [
     id: 'maq-se1',
     world: '4-1',
     title: 'Shipping',
-    org: 'MAQ Software — SE-1',
-    period: 'Sept 2025 – Present',
+    org: 'MAQ Software — SE1',
+    period: 'Sept 2026 – Present',
     location: 'Noida',
     logo: { src: '/assets/maq.png', alt: 'MAQ Software' },
     intro:
@@ -123,7 +123,7 @@ export const checkpoints: Checkpoint[] = [
     ],
     powerUps: ['Semantic Kernel', 'Agentic Workflows', 'LLM Orchestration', 'C#', '.NET'],
     stats: [],
-    // Closes the whole MAQ arc, so it lands after SE-1 rather than mid-story.
+    // Closes the whole MAQ arc, so it lands after SE1 rather than mid-story.
     outro: 'And most importantly — how much there is still left to learn.',
   },
   {
@@ -158,7 +158,7 @@ export const projects: Project[] = [
     afterCheckpoint: 'glbajaj',
     title: 'AKTU PYQ Portal',
     shortLabel: 'PROJECT 01',
-    period: 'Dec 2024',
+    period: '2024',
     stack: ['Django', 'PostgreSQL', 'HTML', 'CSS', 'DocTR'],
     bullets: [
       'Full-stack web portal giving students centralised access to AKTU previous-year question papers',
@@ -171,7 +171,7 @@ export const projects: Project[] = [
     afterCheckpoint: 'amazon',
     title: 'Bank Customer Churn Model',
     shortLabel: 'PROJECT 02',
-    period: 'Oct 2024',
+    period: '2024',
     stack: ['Python', 'scikit-learn', 'Pandas', 'NumPy'],
     bullets: [
       'Machine learning model predicting customer churn from a banking customer dataset',
